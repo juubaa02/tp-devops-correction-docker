@@ -1,0 +1,55 @@
+name: Backend Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test-backend: 
+    runs-on: ubuntu-24.04
+    outputs:
+      test-passed: ${{ steps.test-status.outputs.passed }}
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build and test with Maven
+        run: mvn clean verify
+        working-directory: ./simple-api
+
+      - name: SonarCloud analysis
+        working-directory: ./simple-api
+        run: |
+          mvn -B verify sonar:sonar \
+            -Dsonar.projectKey=juubaa02_tp-devops-correction-docker \
+            -Dsonar.organization=juubaa02 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+      - name: Set test status
+        id: test-status
+        if: success()
+        run: echo "passed=true" >> $GITHUB_OUTPUT
+
+      - name: Create success artifact
+        if: success()
+        run: |
+          mkdir -p test-status
+          echo "SUCCESS" > test-status/backend-tests
+          echo "commit=${{ github.sha }}" >> test-status/backend-tests
+
+      - name: Upload test status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-status-${{ github.sha }}
+          path: test-status/
+          retention-days: 1
