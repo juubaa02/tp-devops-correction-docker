@@ -50,9 +50,9 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
 
       # Build and push HTTPD 
-      - name: Build image and push httpd
+      - name: Build image and push http
         uses: docker/build-push-action@v6
         with:
-          context: ./httpd-server  
+          context: ./http-server  
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
