@@ -21,6 +21,14 @@ jobs:
       - name: Build and test with Maven
         run: mvn clean verify
         working-directory: ./simple-api
+
+      - name: SonarCloud analysis
+        run: mvn -B verify sonar:sonar \
+          -Dsonar.projectKey="juubaa02_tp-devops-correction-docker" \
+          -Dsonar.organization="juubaa02" \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          --file ./simple-api/pom.xml
          
 
   build-and-push-docker-image:
