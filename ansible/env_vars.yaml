@@ -1,0 +1,5 @@
+# env_vars.yml (ne pas versionner)
+db_name: db
+db_user: usr
+db_password: pwd
+app_image: "jujubaa/tp-devops-simple-api-httpd:latest"
