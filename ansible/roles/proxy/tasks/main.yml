@@ -3,6 +3,7 @@
   docker_container:
     name: proxy
     image: "jujubaa/tp-devops-simple-api-httpd:latest"
+    pull: true
     networks:
       - name: app_network
     ports:

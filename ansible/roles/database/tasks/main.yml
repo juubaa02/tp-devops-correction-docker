@@ -3,7 +3,7 @@
   docker_container:
     name: database
     image: "jujubaa/tp-devops-simple-api-database:latest"
-
+    pull: true
     networks:
       - name: app_network
     env:
