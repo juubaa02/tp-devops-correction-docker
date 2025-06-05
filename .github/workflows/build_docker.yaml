@@ -52,6 +52,13 @@ jobs:
           context: ./database  
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-database:latest
           push: true
+    # Build and push FRONTEND
+      - name: Build image and push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./front  
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api-front:latest
+          push: true
 
       # Build and push HTTPD 
       - name: Build image and push http

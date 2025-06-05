@@ -1,0 +1,13 @@
+- name: Run Front container
+  community.docker.docker_container:
+    name: front
+    image: "jujubaa/tp-devops-simple-api-front:latest"
+    pull: true
+    recreate: true
+    force_kill: true
+    state: started
+    restart_policy: always
+    networks:
+      - name: network
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python
