@@ -1,4 +1,0 @@
-db_name: db
-db_user: usr
-db_password: pwd
-app_image: "jujubaa/tp-devops-simple-api-httpd:latest"
