@@ -16,13 +16,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = {SimpleApiApplication.class})
-class departmentsControllerTestIT {
+class DepartmentControllerTestIT {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @Sql({"/InsertData.sql"})
-    void testGetdepartmentsByName() throws Exception {
+    void testGetDepartmentByName() throws Exception {
         mockMvc.perform(get("/departments/ASI"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id", equalTo(1)))
@@ -31,33 +31,33 @@ class departmentsControllerTestIT {
 
     @Test
     @Sql({"/InsertData.sql"})
-    void testGetNonExistingdepartmentsByName() throws Exception {
+    void testGetNonExistingDepartmentByName() throws Exception {
         mockMvc.perform(get("/departments/NIMPORTEQUOI"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @Sql({"/InsertData.sql"})
-    void testGetdepartmentstudentsByName() throws Exception {
+    void testGetDepartmentStudentsByName() throws Exception {
         mockMvc.perform(get("/departments/ASI/students"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id", equalTo(1)))
                 .andExpect(jsonPath("$[0].firstname", equalTo("Gautier")))
                 .andExpect(jsonPath("$[1].lastname", equalTo("Le Bloas")))
-                .andExpect(jsonPath("$[1].departments.id", equalTo(1)))
-                .andExpect(jsonPath("$[1].departments.name", equalTo("ASI")));
+                .andExpect(jsonPath("$[1].department.id", equalTo(1)))
+                .andExpect(jsonPath("$[1].department.name", equalTo("ASI")));
     }
 
     @Test
     @Sql({"/InsertData.sql"})
-    void testGetNonExistingdepartmentstudentsByName() throws Exception {
+    void testGetNonExistingDepartmentStudentsByName() throws Exception {
         mockMvc.perform(get("/departments/NIMPORTEQUOI/students"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @Sql({"/InsertData.sql"})
-    void testGetdepartmentsCountByName() throws Exception {
+    void testGetDepartmentCountByName() throws Exception {
         mockMvc.perform(get("/departments/ASI/count"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", equalTo(48)));
@@ -65,8 +65,9 @@ class departmentsControllerTestIT {
 
     @Test
     @Sql({"/InsertData.sql"})
-    void testGetNonExistingdepartmentsCountsByName() throws Exception {
+    void testGetNonExistingDepartmentCountsByName() throws Exception {
         mockMvc.perform(get("/departments/NIMPORTEQUOI/count"))
                 .andExpect(status().isNotFound());
     }
 }
+ 
