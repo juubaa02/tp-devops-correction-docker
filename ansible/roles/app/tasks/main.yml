@@ -4,6 +4,7 @@
     name: simple-api
     image: "jujubaa/tp-devops-simple-api-backend:latest"  # votre image depuis DockerHub
     pull: true
+    recreate: true
     networks:
       - name: app_network
     env:
