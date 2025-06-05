@@ -2,6 +2,12 @@
 - hosts: all
   gather_facts: true
   become: true
+  vars:
+    db_name: "db"
+    db_user: "usr"
+    db_password: "pwd"
+    image: "jujubaa/tp-devops-simple-api-backend:latest"
+    
   roles:
     - docker
     - network
