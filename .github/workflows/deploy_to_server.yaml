@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
 
+    env:  # <- Définit les secrets en tant qu'ENV pour tout le job
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      APP_IMAGE: ${{ secrets.APP_IMAGE }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,6 +37,7 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i ansible/inventories/setup.yaml ansible/playbook.yaml
+          ansible-playbook -i ansible/inventories/setup.yaml ansible/playbook.yaml \
+            --extra-vars "db_name=$DB_NAME db_user=$DB_USER db_password=$DB_PASSWORD app_image=$APP_IMAGE"
         env:
           ANSIBLE_HOST_KEY_CHECKING: false
