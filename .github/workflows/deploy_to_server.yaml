@@ -31,6 +31,6 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i ansible/inventories/setup.yaml ansible/playbook.yml
+          ansible-playbook -i ansible/inventories/setup.yaml ansible/playbook.yaml
         env:
           ANSIBLE_HOST_KEY_CHECKING: false
