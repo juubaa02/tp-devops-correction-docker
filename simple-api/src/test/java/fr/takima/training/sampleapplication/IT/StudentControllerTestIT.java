@@ -138,3 +138,4 @@ class StudentControllerTestIT {
         org.junit.jupiter.api.Assertions.fail("Test intentionnellement cassé pour démonstration");
     }
 }
+

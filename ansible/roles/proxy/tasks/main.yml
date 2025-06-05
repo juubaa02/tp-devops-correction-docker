@@ -1,0 +1,13 @@
+---
+- name: Run proxy container (nginx)
+  docker_container:
+    name: proxy
+    image: "jujubaa/tp-devops-simple-api-httpd:latest"
+    networks:
+      - name: app_network
+    ports:
+      - "80:80"
+    restart_policy: always
+    state: started
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

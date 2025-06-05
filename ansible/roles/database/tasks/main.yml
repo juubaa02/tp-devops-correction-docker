@@ -1,0 +1,16 @@
+---
+- name: Create database container
+  docker_container:
+    name: database
+    image: "jujubaa/tp-devops-simple-api-database:latest"
+
+    networks:
+      - name: app_network
+    env:
+      POSTGRES_DB: "{{ db_name }}"
+      POSTGRES_USER: "{{ db_user }}"
+      POSTGRES_PASSWORD: "{{ db_password }}"
+    restart_policy: always
+    state: started
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

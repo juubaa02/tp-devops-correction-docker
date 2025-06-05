@@ -1,0 +1,20 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  
+  vars:
+    # Variables pour la base de données
+    db_name: db
+    db_user: usr
+    db_password: pwd
+    
+    # Variable pour l'image de l'application
+    app_image: "jujubaa/tp-devops-simple-api-httpd:latest"
+  
+  roles:
+    - docker
+    - network
+    - database
+    - app
+    - proxy
