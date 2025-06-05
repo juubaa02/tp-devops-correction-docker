@@ -133,9 +133,6 @@ class StudentControllerTestIT {
         mockMvc.perform(get("/students/1"))
                 .andExpect(status().isNotFound());
     }
-    @Test
-    void testThatShouldFail() {
-        org.junit.jupiter.api.Assertions.fail("Test intentionnellement cassé pour démonstration");
-    }
+
 }
 
